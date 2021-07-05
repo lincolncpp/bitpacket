@@ -1,0 +1,8 @@
+bitpacket/BitPacket.java
+ bitpacket.BitPacket
+bitpacket/huffman/HuffmanTree.java
+ bitpacket.huffman.HuffmanTree
+bitpacket/huffman/HuffmanNode.java
+ bitpacket.huffman.HuffmanNode
+bitpacket/huffman/HuffmanMask.java
+ bitpacket.huffman.HuffmanMask
