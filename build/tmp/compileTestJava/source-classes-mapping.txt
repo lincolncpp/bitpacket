@@ -1,2 +1,0 @@
-bitpacket/BitPacket.java
- bitpacket.BitPacket
