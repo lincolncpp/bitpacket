@@ -140,4 +140,61 @@ class BitPacketTest {
         assertEquals(floatValue, packet.readFloat());
         assertEquals(intValue, packet.readInt(intBits));
     }
+
+    @Test
+    void skipBeginEndTest(){
+        int intValue = 123456;
+        int intBits = 32;
+        int bitsToSkip = 10;
+
+        BitPacket packet = new BitPacket();
+        packet.writeInt(5151, bitsToSkip);
+
+        packet.begin();
+        packet.end();
+
+        packet.writeInt(intValue, intBits);
+        packet.begin();
+        packet.skip(bitsToSkip);
+
+        assertEquals(intValue, packet.readInt(intBits));
+    }
+
+    @Test
+    void sizeTest(){
+        int intMaxValue = 12345;
+        int intBits = 15;
+
+
+        BitPacket packet = new BitPacket();
+
+        for(int i = 0;i <= intMaxValue;i++){
+            packet.writeInt(i, intBits);
+        }
+
+        // Checking the last insertion
+        packet.skip(-intBits);
+        assertEquals(intMaxValue, packet.readInt(intBits));
+
+        int bitsCount = (intMaxValue+1)*intBits;
+        int bytesCount = (bitsCount+7)/8*8;
+        assertEquals(bitsCount, packet.bitCount());
+        assertEquals(bytesCount, packet.packetSize());
+    }
+
+    @Test
+    void argsConstructorTest(){
+        int elementsCount = 1000;
+
+        BitPacket packetOne = new BitPacket();
+        for(int i = 0;i < elementsCount;i++){
+            packetOne.writeFloat((float)Math.random()*1e30f);
+        }
+        packetOne.begin();
+
+        BitPacket packetTwo = new BitPacket(packetOne.toArray());
+        for(int i = 0;i < elementsCount;i++){
+            assertEquals(packetOne.readFloat(), packetTwo.readFloat());
+        }
+    }
 }
