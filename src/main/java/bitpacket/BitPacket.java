@@ -138,6 +138,8 @@ public class BitPacket {
             HuffmanMask mask = tree.getMask(b);
             writeInt(mask.getMask(), mask.getLength());
         }
+
+        begin();
     }
 
     public void uncompress(HuffmanTree tree){

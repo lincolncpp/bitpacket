@@ -38,3 +38,7 @@ gradle-app.setting
 
 # IntelliJ
 .idea
+
+
+# Code coverage
+coverage-report/
